@@ -8,10 +8,10 @@ This is a project that uses the view significance graph to find a cutting area a
 This often used in design, or reduces web traffic. The inspiration comes from OSU's website: https://osu.ppy.sh/beatmapsets?q=&m=-1
 
 
-![Image text](https://github.com/windafar/ImageCuter/blob/img/smg.jpg)
+![Image text](https://github.com/windafar/ImageCuter/blob/master/img/smg.jpg)
 
 
-It's simple for apply it in your app, meybe looks like fllows:
+It's simple for apply it in your app, maybe looks like as:
 
         public Bitmap GetSRDFromPath(string filepath,
             double prewidth,double preheight,string premode,string pretype,
@@ -36,7 +36,7 @@ It's simple for apply it in your app, meybe looks like fllows:
  I used this algorithm in an mp3 player:
  
  
- ![Image text](https://github.com/windafar/ImageCuter/blob/img/player.jpg)
+ ![Image text](https://github.com/windafar/ImageCuter/blob/master/img/player.jpg)
 
 
 
