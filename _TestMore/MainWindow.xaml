@@ -1,0 +1,36 @@
+﻿<Window x:Class="_TestMore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:_TestMore"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1280" Background="White">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="649*"/>
+            <RowDefinition Height="42*"/>
+        </Grid.RowDefinitions>
+        <ListBox Name="ImageListBox"  Margin="0,0,-0.4,0.6" BorderBrush="#FF224FD7" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid  HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200*"></ColumnDefinition>
+                            <ColumnDefinition Width="200*"> </ColumnDefinition>
+                            <ColumnDefinition Width="200*"></ColumnDefinition>
+                            <ColumnDefinition Width="200*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Image Height="400" Margin="2,2,2,2" Grid.Column="0" Source="{Binding Path=source}" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+                        <Image Height="400" Margin="2,2,2,2" Grid.Column="1" Source="{Binding Path=area}" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+                        <Image Grid.Column="2" Margin="2,2,2,2" Source="{Binding Path=fin}" HorizontalAlignment="Left" VerticalAlignment="Top"></Image>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBox Name="dirpatchTextBox" Width="256" Text="C:\Users\47004\Desktop\NEW2\新建文件夹"></TextBox>
+            <Button Click="Button_Click">Start</Button>
+        </StackPanel>
+    </Grid>
+</Window>
