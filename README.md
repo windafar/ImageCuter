@@ -3,27 +3,40 @@
 
 CutImage项目
 
-这是一个通过视图显著性图来寻找一块裁截区域，并生成该区域图片的项目，生成图片除了指定高宽外需要一个阈值，该阈值指示应该在显著性图中哪些亮度以上的点需要被保留。   
+This is a project that uses the view significance graph to find a cutting area and generate an image of that area. 
 
-阈值：代表遍历一个连续的区域的最低亮度（0-255）任何低于此亮度的像素点都会被排除到连续区域外；
-
-连续的区域：在发现阈值高于指定值，会把该值及其附近连续的符合该阈值的像素位置记到一个相同的组中；
-
-最后选出区域最大的一组，算出中心点，切出指定像素的图片。
-
-可以应用在设计，节省web流量等方面，参考：https://osu.ppy.sh/beatmapsets?q=&m=-1
-
-应该注意的是正式场景中一般会压缩图片以取得时间和空间的减少。
+This often used in design, or reduces web traffic. The inspiration comes from OSU's website: https://osu.ppy.sh/beatmapsets?q=&m=-1
 
 
+![Image text](https://github.com/windafar/ImageCuter/blob/img/smg.jpg)
 
-VisualAttentionDetection项目
 
-是这个是这个项目的基础，用于生成显著性图片，生成显著性图的算法参考自三方，在函数开头注释有来源，
-目前使用FT那个【备注：算法核心是求取各个像素到平均的颜色距离。】
+It's simple for apply it in your app, meybe looks like fllows:
 
-OtherAppy项目
+        public Bitmap GetSRDFromPath(string filepath,
+            double prewidth,double preheight,string premode,string pretype,
+            Rectangle R,
+            int Tolerance=200
+            )
+        {
+            if (R == null) R = new System.Drawing.Rectangle(0, 0, 256, 256);
+            MemoryStream mss = new MemoryStream();
+            BasicMethodClass.MakeThumbnail(filepath, mss,prewidth, preheight, premode, pretype);
+            if (mss.Length == 0) return null;
+            var srcBitmap = new Bitmap(mss);
+            var vdcmap = VisualAttentionDetectionClass.SalientRegionDetectionBasedOnFT(srcBitmap);
+            mss.Dispose();
+            CutImageClass cuter = new CutImageClass(vdcmap, R, Tolerance);
+            var GenerImage = cuter.GCSsimp_getLightPointFromSource(srcBitmap);
+            srcBitmap.Dispose();
+            vdcmap.Dispose();
+            return GenerImage;
+        }
+(Disposable you can use "using" instead of "disposable")
+ I used this algorithm in an mp3 player:
+ 
+ 
+ ![Image text](https://github.com/windafar/ImageCuter/blob/img/player.jpg)
 
-其他应用，现在有提取显著色的函数,可用于高斯模糊背景上的前景色文字
 
 
