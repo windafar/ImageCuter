@@ -31,8 +31,9 @@ namespace WpfApplication1
         {
             InitializeComponent();
         }
-        string filepath = Environment.CurrentDirectory + @"\Image\2259399638156672448.jpg";
-        //源图
+        //string filepath = Environment.CurrentDirectory + @"\Image\2259399638156672448.jpg";
+        string filepath = @"C:\Users\yjdcb\Source\Repos\player\OSU-NetcloudMusic-player\PlayProjectGame\bin\Debug\cach\「プラスティック・メモリーズ」6巻特典,雨宮天,_A";
+            //源图
         private void imagesrc_Loaded(object sender, RoutedEventArgs e)
         {
             imagesrc.Source = new BitmapImage(new Uri(filepath));
@@ -129,6 +130,7 @@ namespace WpfApplication1
                 CutImageClass cuter = new CutImageClass(b, new System.Drawing.Rectangle(0, 0, NewImage.Width
                     , 256));
                 b = cuter.GCSsimp_getLightPointFromSource(NewImage);
+                //if (Math.Abs(b.Height - 256) > 3||Math.Abs(b.Width-NewImage.Width)>3) throw new Exception("not exceptation result");
                 var x3 = DateTime.Now;
                 #region 显示区域
                 MemoryStream ms = new MemoryStream();
