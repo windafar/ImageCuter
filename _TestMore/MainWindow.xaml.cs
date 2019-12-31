@@ -45,41 +45,18 @@ namespace _TestMore
             {
                 foreach (var item in Imagefiles)
                 {
-                     //   Stream sm_ms = new MemoryStream(); sm_ms.Seek(0, SeekOrigin.Begin);
-                     // ImageBasic.BasicMethodClass.MakeThumbnail(item, sm_ms, 256, 256, "W", "jpg");
-                     //  var srcBitmap = new Bitmap(sm_ms);
-                     //sm_ms.Dispose();
                     var srcBitmap = new Bitmap(item);
-                     var VisualAttentionBitmap = VisualAttentionDetectionClass.SalientRegionDetectionBasedOnFT(srcBitmap);
                     #region 测试FT后的区域选取函数
-                    int width = VisualAttentionBitmap.Width, height = VisualAttentionBitmap.Height;
-                    System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
-                    BitmapData VisualAttentionBmData = VisualAttentionBitmap.LockBits(rect, ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
-                    Bitmap areaImage = new Bitmap(width, height);
-                    BitmapData areaBmData = areaImage.LockBits(rect, ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
-
                     //准备切图类
-                    var finimage = new Bitmap(item);
-                    CutImageClass cuter = new CutImageClass(VisualAttentionBitmap, new System.Drawing.Rectangle(0, 0, 700, 200),215);
-                    us_PixlPoint[] fx = cuter.FindArea(VisualAttentionBmData);
-                    CutImageClass.DrawingArea(cuter.AreaArr, fx, areaBmData, VisualAttentionBmData);
-                    VisualAttentionBitmap.UnlockBits(VisualAttentionBmData);
-
-                    var GenerImage = cuter.GCSsimp_getLightPointFromSource(finimage);
-                    areaImage.UnlockBits(areaBmData);
-                    ////保持到磁盘
-                    FileInfo file = new FileInfo(item);
-                    string name = file.Name.Remove(file.Name.IndexOf(file.Extension), file.Extension.Count());
-                    VisualAttentionBitmap.Save(name + "v" + file.Extension);
-                    areaImage.Save(name + "a"+file.Extension);
-                    GenerImage.Save(name + "c"+file.Extension);
-                    File.Copy(item, file.Name,true);
-                    ////
-                    VisualAttentionBitmap.Dispose();
-                    srcBitmap.Dispose();
-                    finimage.Dispose();
+                    CutImageClass cuter = new CutImageClass(srcBitmap, new System.Drawing.Rectangle(0, 0, 364, 240),215);
+                    cuter.MakeThumbnail(364,240);
+                    cuter.MakeVisualAttentionBitmap();
+                    var areaImage = cuter.OutputAreaBitmap();
+                    cuter.MakeCutBitmap();
+                    var GenerImage = new Bitmap(cuter.CurDestBitmap);
                     #endregion
-                    #region 准备数据
+
+                    #region 准备视图数据
                     MemoryStream ms = new MemoryStream();
                     if (areaImage == null) continue ;
                     areaImage.Save(ms, ImageFormat.Jpeg);

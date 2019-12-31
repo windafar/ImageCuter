@@ -29,7 +29,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <TextBox Name="dirpatchTextBox" Width="256" Text="C:\Users\47004\Desktop\NEW2\新建文件夹"></TextBox>
+            <TextBox Name="dirpatchTextBox" Width="256"></TextBox>
             <Button Click="Button_Click">Start</Button>
         </StackPanel>
     </Grid>

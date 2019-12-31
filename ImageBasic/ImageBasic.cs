@@ -872,6 +872,87 @@ namespace ImageBasic
                 g.Dispose();
             }
         }
+        /// <summary>
+        /// 生成新的压缩图片
+        /// </summary>
+        /// <param name="originalImage"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="mode"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        static public Bitmap MakeThumbnail(Bitmap originalImage, double width, double height, string mode, string type)
+        {
+            System.Drawing.Imaging.ImageFormat imgtype = System.Drawing.Imaging.ImageFormat.Jpeg;
+            if (type == "png" || type == ".png")
+            {
+                imgtype = System.Drawing.Imaging.ImageFormat.Png;
+            }
+            if (type == "jpg" || type == ".jpg")
+            {
+                imgtype = System.Drawing.Imaging.ImageFormat.Jpeg;
+            }
+
+            int towidth = (int)(width <= 1 ? originalImage.Width * width : width);
+            int toheight = (int)(height <= 1 ? originalImage.Height * height : height);
+            width = towidth; height = toheight;
+            int x = 0;
+            int y = 0;
+            int ow = originalImage.Width;
+            int oh = originalImage.Height;
+            switch (mode)
+            {
+                case "ATUO":
+                    if (width <= originalImage.Width)
+                        toheight = (int)(originalImage.Height * width / originalImage.Width);
+                    else if (height <= originalImage.Height)
+                        toheight = (int)(originalImage.Height * width / originalImage.Width);
+                    else
+                        return originalImage;
+                    break;
+                case "HW"://指定高宽缩放（可能变形）                 
+                    break;
+                case "W"://指定宽，高按比例                     
+                    toheight = (int)(originalImage.Height * width / originalImage.Width);
+                    break;
+                case "H"://指定高，宽按比例 
+                    towidth = (int)(originalImage.Width * height / originalImage.Height);
+                    break;
+                case "Cut"://指定高宽裁减（不变形）                 
+                    if ((double)originalImage.Width / (double)originalImage.Height > (double)towidth / (double)toheight)
+                    {
+                        oh = originalImage.Height;
+                        ow = originalImage.Height * towidth / toheight;
+                        y = 0;
+                        x = (originalImage.Width - ow) / 2;
+                    }
+                    else
+                    {
+                        ow = originalImage.Width;
+                        oh = (int)(originalImage.Width * height / towidth);
+                        x = 0;
+                        y = (originalImage.Height - oh) / 2;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            //新建一个bmp图片 
+            Bitmap bitmap_Dist = new System.Drawing.Bitmap(towidth, toheight);
+            //新建一个画板 
+            Graphics g = System.Drawing.Graphics.FromImage(bitmap_Dist);
+            //设置高质量插值法 
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            //设置高质量,低速度呈现平滑程度 
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            //清空画布并以透明背景色填充 
+            g.Clear(System.Drawing.Color.Transparent);
+            //在指定位置并且按指定大小绘制原图片的指定部分 
+            g.DrawImage(originalImage, new System.Drawing.Rectangle(0, 0, towidth, toheight), new System.Drawing.Rectangle(x, y, ow, oh), GraphicsUnit.Pixel);
+            g.Dispose();
+            return bitmap_Dist;
+            }
+        
 
         /// <summary>
         /// 按指定的压缩质量及格式保存图片（微软的Image.Save方法保存到图片压缩质量为75)

@@ -29,19 +29,31 @@ namespace OtherAppy
         public Color GetDominantHue(double S=0.66,double L=0.66,int AttentionValue=200)
         {
             var destinatBitmap = new Bitmap(desBitmap);
-            var VisualAttentionBitmap = VisualAttentionDetectionClass.SalientRegionDetectionBasedOnFT(destinatBitmap);
-            int width = VisualAttentionBitmap.Width, height = VisualAttentionBitmap.Height;
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
-            BitmapData VisualAttentionBmData = VisualAttentionBitmap.LockBits(rect, ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+            //var VisualAttentionBitmap = VisualAttentionDetectionClass.SalientRegionDetectionBasedOnFT(destinatBitmap);
+            //int width = VisualAttentionBitmap.Width, height = VisualAttentionBitmap.Height;
+            //Rectangle rect = new System.Drawing.Rectangle(0, 0, width, height);
+            //BitmapData VisualAttentionBmData = VisualAttentionBitmap.LockBits(rect, ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
 
-            CutImageClass cuter = new CutImageClass(VisualAttentionBitmap, new System.Drawing.Rectangle(0, 0, 700, 200), AttentionValue);
-            us_PixlPoint[] AreaArr = cuter.FindArea(VisualAttentionBmData);
+            //CutImageClass cuter = new CutImageClass(VisualAttentionBitmap, new System.Drawing.Rectangle(0, 0, 700, 200), AttentionValue);
+            //cuter.FindArea(VisualAttentionBmData);
+
+            CutImageClass cuter = new CutImageClass(desBitmap, new System.Drawing.Rectangle(0, 0, 700, 200), AttentionValue);
+            cuter.MakeThumbnail(Math.Min(desBitmap.Width, 512), Math.Min(desBitmap.Height, 512))
+                .MakeVisualAttentionBitmap();
+
+            int width = cuter.CurDestBitmap.Width, height = cuter.CurDestBitmap.Height;
+            Rectangle rect = new Rectangle(0, 0, width, height);
+            BitmapData VisualAttentionBmData = cuter.CurDestBitmap.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format8bppIndexed);
+            cuter.FindArea(VisualAttentionBmData);
+            cuter.CurDestBitmap.UnlockBits(VisualAttentionBmData);
+
             var fx = cuter.fx;
             var MAXAreaArrNumbler = cuter.MAXAreaArrNumbler;
 
             List<myrgbcolor> list = new List<myrgbcolor>();
             int desWidth = desBitmap.Width;
             int desHeight = desBitmap.Height;
+            int _vaimageStride = cuter.CurDestBitmap.Width + 4 - cuter.CurDestBitmap.Width % 4;
             //Bitmap dstBitmap = BasicMethodClass.CreateGrayscaleImage(desWidth, desHeight);
             BitmapData dstBmData = destinatBitmap.LockBits(new Rectangle(0, 0, desWidth, desHeight),
                       ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
@@ -60,7 +72,7 @@ namespace OtherAppy
                 for (int y = 1; y < desHeight - 1; y++)
                 {
                     DstIndex = y * dstBmData.Stride;
-                    SourceIndex = y * VisualAttentionBmData.Stride;
+                    SourceIndex = y * _vaimageStride;
                     for (int x = 1; x < desWidth - 1; x++)
                     {
                         int Sx = fx[SourceIndex].AreaNum;
@@ -107,5 +119,5 @@ namespace OtherAppy
 
 
 ///
-/// 注意：使用模糊（如果不行直接固定固定色调）方式解决单色问题
+/// 莫名不好用，搁置
 ///

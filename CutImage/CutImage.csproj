@@ -63,6 +63,10 @@
       <Project>{2d95120a-b885-4cde-8b6f-7aae702d7f61}</Project>
       <Name>ImageBasic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\VisualAttentionDetection\VisualAttentionDetection.csproj">
+      <Project>{068DBF2C-9889-415D-B251-BB5FA697BCBE}</Project>
+      <Name>VisualAttentionDetection</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

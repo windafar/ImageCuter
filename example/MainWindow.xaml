@@ -1,0 +1,17 @@
+﻿<Window x:Class="example.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:example"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ScrollViewer>
+        <WrapPanel>
+            <Image  Name="srcimage" Source="pic1.jpg" Stretch="None"/>
+            <Image  Name="destimage" Loaded="Destimage_Loaded" Stretch="None"></Image>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>

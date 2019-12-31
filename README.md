@@ -1,4 +1,4 @@
-#VisualAttentionDetectionApply
+﻿#VisualAttentionDetectionApply
 说明：
 
 CutImage项目
@@ -13,26 +13,13 @@ This often used in design, or reduces web traffic. The inspiration comes from OS
 
 It's simple for apply it in your app, maybe looks like as:
 
-        public Bitmap GetSRDFromPath(string filepath,
-            double prewidth,double preheight,string premode,string pretype,
-            Rectangle R,
-            int Tolerance=200
-            )
-        {
-            if (R == null) R = new System.Drawing.Rectangle(0, 0, 256, 256);
-            MemoryStream mss = new MemoryStream();
-            BasicMethodClass.MakeThumbnail(filepath, mss,prewidth, preheight, premode, pretype);
-            if (mss.Length == 0) return null;
-            var srcBitmap = new Bitmap(mss);
-            var vdcmap = VisualAttentionDetectionClass.SalientRegionDetectionBasedOnFT(srcBitmap);
-            mss.Dispose();
-            CutImageClass cuter = new CutImageClass(vdcmap, R, Tolerance);
-            var GenerImage = cuter.GCSsimp_getLightPointFromSource(srcBitmap);
-            srcBitmap.Dispose();
-            vdcmap.Dispose();
-            return GenerImage;
-        }
-(Disposable you can use "using" instead of "disposable")
+            CutImageClass cuter = new CutImageClass(new System.Drawing.Bitmap("pic1.jpg"), new System.Drawing.Rectangle(0, 0, 364, 240), 215);  
+            var GenerImage =cuter  
+                        .MakeThumbnail(364, 240)//可选，压缩当前结果  
+                        .MakeVisualAttentionBitmap()//建议，制作显著图  
+                        .MakeCutBitmap()//制作切图  
+                        .OutputCurrentDestImage();//输出  
+
  I used this algorithm in an mp3 player:
  
  
