@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageBasic", "ImageBasic\Im
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_TestMore", "_TestMore\_TestMore.csproj", "{B21CB20C-4DCA-4566-9294-8957B491D0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtherAppy", "OtherAppy\OtherAppy.csproj", "{7FDD2263-3304-46FF-A043-F580EAC45C1F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "example", "example\example.csproj", "{956BB75F-9FDC-4A8E-B9C1-00221D3E89A7}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{B21CB20C-4DCA-4566-9294-8957B491D0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21CB20C-4DCA-4566-9294-8957B491D0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21CB20C-4DCA-4566-9294-8957B491D0B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7FDD2263-3304-46FF-A043-F580EAC45C1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7FDD2263-3304-46FF-A043-F580EAC45C1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7FDD2263-3304-46FF-A043-F580EAC45C1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7FDD2263-3304-46FF-A043-F580EAC45C1F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{956BB75F-9FDC-4A8E-B9C1-00221D3E89A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{956BB75F-9FDC-4A8E-B9C1-00221D3E89A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{956BB75F-9FDC-4A8E-B9C1-00221D3E89A7}.Release|Any CPU.ActiveCfg = Release|Any CPU

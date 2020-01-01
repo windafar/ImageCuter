@@ -105,10 +105,6 @@
       <Project>{2d95120a-b885-4cde-8b6f-7aae702d7f61}</Project>
       <Name>ImageBasic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OtherAppy\OtherAppy.csproj">
-      <Project>{7FDD2263-3304-46FF-A043-F580EAC45C1F}</Project>
-      <Name>OtherAppy</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VisualAttentionDetection\VisualAttentionDetection.csproj">
       <Project>{068dbf2c-9889-415d-b251-bb5fa697bcbe}</Project>
       <Name>VisualAttentionDetection</Name>
